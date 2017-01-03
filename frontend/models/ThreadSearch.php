@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
@@ -12,14 +12,16 @@ use common\models\Thread;
  */
 class ThreadSearch extends Thread
 {
+    public $username;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
-            [['name', 'created_at'], 'safe'],
+            [['id', 'username'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -49,6 +51,13 @@ class ThreadSearch extends Thread
             'query' => $query,
         ]);
 
+        $dataProvider->sort->attributes['user.username'] = [
+            'asc'  => ['user.username' => SORT_ASC],
+            'desc' => ['user.username' => SORT_DESC],
+        ];
+
+        $query->joinWith('user');
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -60,8 +69,7 @@ class ThreadSearch extends Thread
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
+            'user.username' => $this->username,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

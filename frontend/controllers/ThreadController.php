@@ -4,10 +4,11 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Thread;
-use common\models\ThreadSearch;
+use frontend\models\ThreadSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ThreadController implements the CRUD actions for Thread model.
@@ -20,6 +21,17 @@ class ThreadController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -64,6 +76,7 @@ class ThreadController extends Controller
     public function actionCreate()
     {
         $model = new Thread();
+        $model->user_id = Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

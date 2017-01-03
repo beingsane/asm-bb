@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%thread}}".
@@ -32,11 +33,22 @@ class Thread extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'created_at'], 'required'],
-            [['user_id'], 'integer'],
-            [['created_at'], 'safe'],
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 100],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'TimestampBehavior' => [
+                'class' => TimestampBehavior::className(),
+                'updatedAtAttribute' => null,
+                'value' => function () { return date('Y-m-d H:i:s'); },
+            ],
         ];
     }
 
