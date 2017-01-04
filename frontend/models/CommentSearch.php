@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
@@ -18,8 +18,7 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['id', 'user_id'], 'integer'],
-            [['text', 'created_at'], 'safe'],
+            [['text'], 'safe'],
         ];
     }
 
@@ -58,11 +57,6 @@ class CommentSearch extends Comment
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-        ]);
 
         $query->andFilterWhere(['like', 'text', $this->text]);
 

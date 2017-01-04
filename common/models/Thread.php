@@ -13,6 +13,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $name
  * @property string $created_at
  *
+ * @property Comment[] $comments
  * @property User $user
  * @property ThreadTag[] $threadTags
  * @property Tag[] $tags
@@ -33,8 +34,11 @@ class Thread extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['user_id', 'name', 'created_at'], 'required'],
+            [['user_id'], 'integer'],
+            [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -63,6 +67,14 @@ class Thread extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'created_at' => Yii::t('app', 'Created At'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['thread_id' => 'id']);
     }
 
     /**

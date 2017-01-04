@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\CommentSearch */
+/* @var $model frontend\models\CommentSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -15,13 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'user_id') ?>
-
     <?= $form->field($model, 'text') ?>
-
-    <?= $form->field($model, 'created_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
