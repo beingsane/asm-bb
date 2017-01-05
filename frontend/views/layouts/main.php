@@ -43,7 +43,7 @@ AppAsset::register($this);
                     <a href="<?= Url::to(['site/signup']) ?>">Register</a>
                 <?php } else { ?>
                     <?= Yii::$app->user->identity->username ?> |
-                    <a href="<?= Url::to(['site/logout']) ?>">
+                    <a href="<?= Url::to(['site/logout']) ?>" data-method="POST">
                         Logout (<?= Html::encode(Yii::$app->user->identity->username) ?>)
                     </a><br>
                     <a href="<?= Url::to(['site/user-profile']) ?>">User profile</a>
@@ -122,7 +122,7 @@ AppAsset::register($this);
 
 
 <footer class="footer">
-    <div class="container">
+    <div class="content-block clearfix">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>

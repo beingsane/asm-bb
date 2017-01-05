@@ -184,3 +184,26 @@ div.panel button {
     text-align: center;
     cursor: not-allowed;
 }
+
+form.login-block, form.register-block {
+    width: 400px;
+}
+
+.content-block div.editor p, .content-block div.new_editor p {
+    color: #000;
+}
+
+.footer {
+    background-color: #d0d0d0;
+    color: #fff;
+    border-top: 0;
+}
+
+.footer .content-block {
+    background-color: #404040;
+    padding: 12px 20px 4px;
+}
+
+.footer a {
+    color: #337ab7;
+}
