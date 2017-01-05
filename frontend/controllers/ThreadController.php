@@ -57,6 +57,12 @@ class ThreadController extends Controller
         ]);
     }
 
+    public function actionSearchByTag($tag)
+    {
+        $_GET['ThreadSearch']['tag'] = $tag;
+        return $this->actionIndex();
+    }
+
     /**
      * Displays a single Thread model.
      * @param integer $id

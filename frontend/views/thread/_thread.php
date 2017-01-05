@@ -57,7 +57,7 @@ $commentsCount = $model->getComments()->count();
                     echo Yii::t('app', 'Tags:') . ' ';
                     $links = [];
                     foreach ($model->tags as $tag) {
-                        $links[] = Html::a(Html::encode($tag->name), ['thread/index', 'ThreadSearch[tag]' => $tag->name]);
+                        $links[] = Html::a(Html::encode($tag->name), ['thread/search-by-tag', 'tag' => $tag->name]);
                     }
                     echo implode(', ', $links);
                 }

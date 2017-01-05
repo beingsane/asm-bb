@@ -84,7 +84,7 @@ AppAsset::register($this);
                     $fontSize = $tag['thread_count'] * 100 / $maxCount;
                     if ($fontSize <= 30) $fontSize = 30;
 
-                    echo Html::a(Html::encode($tag['name']), ['thread/index', 'ThreadSearch[tag]' => $tag['name']],
+                    echo Html::a(Html::encode($tag['name']), ['thread/search-by-tag', 'tag' => $tag['name']],
                         [
                             'class' => 'taglink',
                             'style' => 'font-size: ' . $fontSize . '%',

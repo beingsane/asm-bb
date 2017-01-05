@@ -57,6 +57,8 @@ class ThreadSearch extends Thread
             $query = Thread::find();
         }
 
+        $query->orderBy(['thread.created_at' => SORT_DESC]);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

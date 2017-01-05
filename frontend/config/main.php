@@ -41,6 +41,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'user/<username>' => 'site/user-profile',
+                'user' => 'site/user-profile',
+                'tag/<tag>' => 'thread/search-by-tag',
             ],
         ],
         'formatter' => [
