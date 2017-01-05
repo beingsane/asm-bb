@@ -144,3 +144,43 @@ div.panel button {
     color: white;
     padding: 4px;
 }
+
+
+
+
+
+.pagination {
+    margin-bottom: 16px;
+    margin-top: 16px;
+    text-align: left;
+}
+
+.pagination > li > a, .pagination > li > span {
+    background-color: #ffda44;
+    display: inline-block;
+    min-width: 32px;
+    padding: 4px;
+    text-align: center;
+    margin: 2px;
+    border: 0px;
+    color: #000;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: #f06060;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+    min-width: 32px;
+    padding: 4px;
+    text-align: center;
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+    background-color: #ffe8aa;
+    display: inline-block;
+    min-width: 32px;
+    padding: 4px;
+    text-align: center;
+    cursor: not-allowed;
+}

@@ -24,5 +24,6 @@ $this->title = Yii::t('app', 'Thread list');
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemView' => '_thread.php',
+        'layout' => '{pager}{summary}{items}',
     ]); ?>
 </div>
