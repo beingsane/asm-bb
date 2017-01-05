@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Thread;
+use common\models\Comment;
 use frontend\models\ThreadSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -63,8 +64,25 @@ class ThreadController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $newCommentModel = new Comment();
+        $newCommentModel->user_id = Yii::$app->user->id;
+        $newCommentModel->thread_id = $model->id;
+
+        if (Yii::$app->request->isPost) {
+            $newCommentModel->load(Yii::$app->request->post());
+
+            if ($newCommentModel->save()) {
+                $newCommentModel = new Comment();
+                $newCommentModel->user_id = Yii::$app->user->id;
+                $newCommentModel->thread_id = $model->id;
+            }
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'newCommentModel' => $newCommentModel,
         ]);
     }
 

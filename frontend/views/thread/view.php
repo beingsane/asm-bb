@@ -6,6 +6,7 @@ use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Thread */
+/* @var $newCommentModel common\models\Comment */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Threads'), 'url' => ['index']];
@@ -31,5 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => new \yii\data\ActiveDataProvider(['query' => $model->getComments()]),
         'itemView' => '_comment.php',
     ]); ?>
+
+    <br><br>
+
+    <?= $this->render('_commentForm', ['model' => $newCommentModel]) ?>
 
 </div>

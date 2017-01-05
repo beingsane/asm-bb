@@ -34,7 +34,7 @@ class Comment extends \yii\db\ActiveRecord
     {
         return [
             [['thread_id', 'user_id'], 'integer'],
-            [['user_id', 'text'], 'required'],
+            [['thread_id', 'user_id', 'text'], 'required'],
             [['text'], 'string'],
             [['thread_id'], 'exist', 'skipOnError' => true, 'targetClass' => Thread::className(), 'targetAttribute' => ['thread_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
