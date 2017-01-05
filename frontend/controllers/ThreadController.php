@@ -96,11 +96,21 @@ class ThreadController extends Controller
         $model = new Thread();
         $model->user_id = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $newCommentModel = new Comment();
+        $newCommentModel->user_id = Yii::$app->user->id;
+
+        $postData = Yii::$app->request->post();
+        if ($model->load($postData) && $res = $model->save()) {
+            $newCommentModel->load(Yii::$app->request->post());
+            $newCommentModel->thread_id = $model->id;
+            $newCommentModel->user_id = Yii::$app->user->id;
+            $newCommentModel->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'newCommentModel' => $newCommentModel,
             ]);
         }
     }

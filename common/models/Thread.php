@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%thread}}".
@@ -21,6 +22,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Thread extends \yii\db\ActiveRecord
 {
+    private $tagString;
+
+
     /**
      * @inheritdoc
      */
@@ -35,9 +39,9 @@ class Thread extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'created_at'], 'required'],
+            [['user_id', 'name'], 'required'],
             [['user_id'], 'integer'],
-            [['created_at'], 'safe'],
+            [['tagString'], 'safe'],
             [['name'], 'string', 'max' => 100],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -111,4 +115,49 @@ class Thread extends \yii\db\ActiveRecord
             ->viaTable(Comment::tableName(), ['thread_id' => 'id'])
             ->select('id, username');
     }
+
+    public function getTagString()
+    {
+        if ($this->tagString === null) {
+            $this->tagString = implode(', ', ArrayHelper::getColumn($this->tags, 'name'));
+        }
+
+        return $this->tagString;
+    }
+
+    public function setTagString($value)
+    {
+        $this->tagString = $value;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $res = parent::afterSave($insert, $changedAttributes);
+
+        // just recreate all thread tags
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        foreach ($this->threadTags as $threadTag) {
+            $threadTag->delete();
+        }
+
+        $tagNames = explode(',', $this->tagString);
+        foreach ($tagNames as $tagName) {
+            $tagName = trim($tagName);
+            $tag = Tag::findOne(['name' => $tagName]);
+            if (!$tag) {
+                $tag = new Tag(['name' => $tagName]);
+                $tag->save();
+            }
+
+            $threadTag = new ThreadTag(['tag_id' => $tag->id, 'thread_id' => $this->id]);
+            $threadTag->save();
+        }
+
+        $transaction->commit();
+
+        return $res;
+    }
 }
+

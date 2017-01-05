@@ -82,7 +82,7 @@ AppAsset::register($this);
 
                 foreach ($tags as $tag) {
                     $fontSize = $tag['thread_count'] * 100 / $maxCount;
-                    if ($fontSize <= 10) $fontSize = 10;
+                    if ($fontSize <= 30) $fontSize = 30;
 
                     echo Html::a(Html::encode($tag['name']), ['thread/index', 'ThreadSearch[tag]' => $tag['name']],
                         [

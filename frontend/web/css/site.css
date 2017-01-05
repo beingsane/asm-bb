@@ -207,3 +207,8 @@ form.login-block, form.register-block {
 .footer a {
     color: #337ab7;
 }
+
+.content-block .new_editor {
+    width: 100%;
+    max-width: 100%;
+}
