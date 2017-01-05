@@ -41,11 +41,15 @@ $commentsCount = $model->getComments()->count();
                 <br>
 
                 <?php
-                    if (count($model->joinedUsers)) {
+                    $joinedUsers = $model->joinedUsers;
+                    unset($joinedUsers[$model->user->username]);
+                    if (count($joinedUsers)) {
                         echo Yii::t('app', 'joined:') . ' ';
-                        foreach ($model->joinedUsers as $user) {
-                            echo Html::a(Html::encode($user->username), ['site/user-profile', 'username' => $user->username]);
+                        $links = [];
+                        foreach ($joinedUsers as $user) {
+                            $links[] = Html::a(Html::encode($user->username), ['site/user-profile', 'username' => $user->username]);
                         }
+                        echo implode(', ', $links);
                     }
                 ?>
             </span>
