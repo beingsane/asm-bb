@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\User;
 
 /**
  * Site controller
@@ -209,5 +210,19 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionUserProfile($username = null)
+    {
+        if ($username === null) {
+            $username = Yii::$app->user->identity->username;
+        }
+
+        $user = User::findOne(['username' => $username]);
+        if (!$user) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        return $this->render('userProfile', ['user' => $user]);
     }
 }
