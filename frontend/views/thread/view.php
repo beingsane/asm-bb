@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Thread list'), 'url'
     <?= ListView::widget([
         'dataProvider' => new \yii\data\ActiveDataProvider(['query' => $model->getComments()]),
         'itemView' => '_comment.php',
+        'layout' => '{pager}{summary}{items}{pager}',
     ]); ?>
 
     <br><br>

@@ -6,19 +6,23 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Thread;
+use common\models\Tag;
+use common\models\ThreadTag;
 
 /**
  * ThreadSearch represents the model behind the search form about `common\models\Thread`.
  */
 class ThreadSearch extends Thread
 {
+    public $tag;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['name'], 'safe'],
+            [['name', 'tag'], 'safe'],
         ];
     }
 
@@ -40,16 +44,29 @@ class ThreadSearch extends Thread
      */
     public function search($params)
     {
-        $query = Thread::find();
+        $this->load($params);
+
+        if ($this->tag) {
+            $tag = Tag::findOne(['name' => $this->tag]);
+            if ($tag) {
+                $query = $tag->getThreads();
+            } else {
+                $query = Thread::find()->where('0=1');
+            }
+        } else {
+            $query = Thread::find();
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
         $query->with('comments');
         $query->with('user');
         $query->with('joinedUsers');
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
 
         $dataProvider->sort->attributes['user.username'] = [
             'asc'  => ['user.username' => SORT_ASC],
@@ -57,8 +74,6 @@ class ThreadSearch extends Thread
         ];
 
         $query->joinWith('user');
-
-        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
