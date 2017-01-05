@@ -12,15 +12,12 @@ use common\models\Thread;
  */
 class ThreadSearch extends Thread
 {
-    public $username;
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'username'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -67,10 +64,6 @@ class ThreadSearch extends Thread
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'user.username' => $this->username,
-        ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
 

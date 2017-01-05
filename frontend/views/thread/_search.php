@@ -17,25 +17,14 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-sm-3">
-            <?= $form->field($model, 'id') ?>
+            <?= $form->field($model, 'name')->label(false)->textInput(['placeholder' => Yii::t('app', 'Thread name')]) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= $form->field($model, 'user_id') ?>
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+            </div>
         </div>
-
-        <div class="col-sm-3">
-            <?= $form->field($model, 'name') ?>
-        </div>
-
-        <div class="col-sm-3">
-            <?= $form->field($model, 'created_at') ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
