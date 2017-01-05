@@ -12,6 +12,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $thread_id
  * @property integer $user_id
  * @property string $text
+ * @property string $text_compiled_html
  * @property string $created_at
  *
  * @property Thread $thread
@@ -90,6 +91,16 @@ class Comment extends \yii\db\ActiveRecord
      */
     public function html()
     {
-        return Yii::$app->formatter->asHtml($this->text);
+        return $this->text_compiled_html;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        $this->text_compiled_html = Yii::$app->formatter->asHtml($this->text);
+
+        return parent::beforeSave($insert);
     }
 }
