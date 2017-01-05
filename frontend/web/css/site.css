@@ -11,7 +11,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 0px 15px 20px;
 }
 
 .footer {
@@ -117,4 +117,15 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+
+body {
+    margin: 8px;
+}
+
+.content-block {
+    margin: auto;
+    width: 95%;
+    max-width: 1280px;
 }

@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "{{%tag}}".
  *
  * @property integer $id
- * @property string $text
+ * @property string $name
  *
  * @property ThreadTag[] $threadTags
  * @property Thread[] $threads
@@ -29,8 +29,8 @@ class Tag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text'], 'required'],
-            [['text'], 'string', 'max' => 100],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 100],
         ];
     }
 
@@ -41,7 +41,7 @@ class Tag extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'text' => Yii::t('app', 'Text'),
+            'name' => Yii::t('app', 'Name'),
         ];
     }
 

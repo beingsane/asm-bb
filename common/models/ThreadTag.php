@@ -62,4 +62,22 @@ class ThreadTag extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Thread::className(), ['id' => 'thread_id']);
     }
+
+    /**
+     * Returns information about thread count by tags ordered by tag name asc
+     * @return array
+     */
+    public static function getTagsCountInfo()
+    {
+        $tags = ThreadTag::find()
+            ->select('tag_id, COUNT(thread_id) thread_count, tag.name')
+            ->join('INNER JOIN', 'tag', 'tag_id = tag.id')
+            ->groupBy('tag_id')
+            ->orderBy('tag.name ASC')
+            ->limit(100)
+            ->asArray()
+            ->all();
+
+        return $tags;
+    }
 }
