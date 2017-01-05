@@ -16,11 +16,11 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <?= $form->field($model, 'name')->label(false)->textInput(['placeholder' => Yii::t('app', 'Thread name')]) ?>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
             </div>

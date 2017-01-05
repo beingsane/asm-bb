@@ -100,4 +100,14 @@ class Thread extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%thread__tag}}', ['thread_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJoinedUsers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->where(['!=', 'id', $this->user->id])
+            ->viaTable(Comment::tableName(), ['thread_id' => 'id'])
+            ->select('id, username');
+    }
 }

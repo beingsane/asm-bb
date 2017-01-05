@@ -41,6 +41,9 @@ class ThreadSearch extends Thread
     public function search($params)
     {
         $query = Thread::find();
+        $query->with('comments');
+        $query->with('user');
+        $query->with('joinedUsers');
 
         // add conditions that should always apply here
 

@@ -88,7 +88,7 @@ AppAsset::register($this);
                         [
                             'class' => 'taglink',
                             'style' => 'font-size: ' . $fontSize . '%',
-                            'title' => Yii::t('app', '{count, plural, =1{thread}, other{threads}', ['count' => $tag['thread_count']]),
+                            'title' => Yii::t('app', '{count, number} {count, plural, =1{thread} other{threads}}', ['count' => $tag['thread_count']]),
                         ]
                     );
                 }

@@ -1,34 +1,28 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ThreadSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Threads');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('app', 'Thread list');
 ?>
-<div class="thread-index">
+<div class="thread-index threads_list">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?= $this->render('_search', ['model' => $searchModel]) ?>
+    <div class="row">
+        <div class="col-sm-9">
+            <?= $this->render('_search', ['model' => $searchModel]) ?>
+        </div>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Thread'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
+        <div class="col-sm-3 text-right">
+            <?= Html::a(Yii::t('app', 'Create Thread'), ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
+    </div>
+
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user.username',
-            'name',
-            'created_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+        'itemView' => '_thread.php',
     ]); ?>
 </div>
