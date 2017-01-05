@@ -9,18 +9,18 @@ use yii\helpers\Html;
 
     <div class="post">
         <div class="search_info">
-            <img class="unread_icon" src="/images/onepost.svg"/>
+            <img class="unread_icon" src="<?= Yii::$app->homeUrl ?>images/onepost.svg"/>
 
             <?= Html::a(Html::encode($model->user->username), ['site/user-profile', 'username' => $model->user->username],
                 ['class' => 'user_name']
             ) ?>
 
             <div class="center">
-                <img class="smallavatar" src="/images/anon.png">
+                <img class="smallavatar" src="<?= Yii::$app->homeUrl ?>images/anon.png">
             </div>
 
             <div class="changed" style="margin-left: 8px">
-                <img src="/images/edit.svg" width="16" height="16" alt="#"/>
+                <img src="<?= Yii::$app->homeUrl ?>images/edit.svg" width="16" height="16" alt="#"/>
                 <?= Yii::$app->formatter->asDatetime($model->created_at) ?>
             </div>
         </div>

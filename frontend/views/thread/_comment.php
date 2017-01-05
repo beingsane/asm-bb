@@ -11,14 +11,14 @@ use yii\widgets\DetailView;
 
     <div class="post">
         <div class="user_info">
-            <img class="unread_icon" src="/images/onepost.svg">
+            <img class="unread_icon" src="<?= Yii::$app->homeUrl ?>images/onepost.svg">
 
             <?= Html::a(Html::encode($model->user->username), ['site/user-profile', 'username' => $model->user->username],
                 ['class' => 'user_name']
             ) ?>
 
             <div class="center">
-                <img class="avatar" src="/images/anon.png">
+                <img class="avatar" src="<?= Yii::$app->homeUrl ?>images/anon.png">
             </div>
 
             <div class="user_pcnt">

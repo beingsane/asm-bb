@@ -25,10 +25,10 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 
-    <link rel="stylesheet" href="/css/all.css">
-    <link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" color="#d80027">
+    <link rel="stylesheet" href="<?= Yii::$app->homeUrl ?>css/all.css">
+    <link rel="mask-icon" href="<?= Yii::$app->homeUrl ?>images/favicons/safari-pinned-tab.svg" color="#d80027">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+    <meta name="msapplication-TileImage" content="<?= Yii::$app->homeUrl ?>images/favicons/mstile-144x144.png">
     <meta name="theme-color" content="#d80027">
 </head>
 <body>
@@ -60,7 +60,7 @@ AppAsset::register($this);
                     name="CommentSearch[text]"
                     placeholder="<?= Html::encode(Yii::t('app', 'Search')) ?>"
                     value="<?= Html::encode($commentSearch->text) ?>"
-                /><img class="icon_btn" src="/images/search.svg" alt="?"/>
+                /><img class="icon_btn" src="<?= Yii::$app->homeUrl ?>images/search.svg" alt="?"/>
             </form>
 
             <h1>AsmBB demo</h1>
@@ -68,7 +68,7 @@ AppAsset::register($this);
 
         <div class="tags">
             <a class="taglink" title="Show all threads" href="<?= Yii::$app->homeUrl ?>">
-                <img src="/images/posts.svg" alt="All"/>
+                <img src="<?= Yii::$app->homeUrl ?>images/posts.svg" alt="All"/>
             </a>
             <?php
                 $tags = ThreadTag::getTagsCountInfo();

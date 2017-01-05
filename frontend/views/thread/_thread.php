@@ -19,7 +19,7 @@ $commentsCount = $model->getComments()->count();
             </div>
 
             <div class="changed">
-                <img src="/images/edit.svg" width="16" height="16" alt="#"/>
+                <img src="<?= Yii::$app->homeUrl ?>images/edit.svg" width="16" height="16" alt="#"/>
                 <?= Yii::$app->formatter->asDateTime(
                     $commentsCount > 0
                         ? $model->getComments()->orderBy(['created_at' => SORT_DESC])->limit(1)->one()->created_at
