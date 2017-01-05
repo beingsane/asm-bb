@@ -79,7 +79,9 @@ class Thread extends \yii\db\ActiveRecord
      */
     public function getComments()
     {
-        return $this->hasMany(Comment::className(), ['thread_id' => 'id']);
+        return User::getDb()->cache(function ($db) {
+            return $this->hasMany(Comment::className(), ['thread_id' => 'id']);
+        });
     }
 
     /**
@@ -87,7 +89,9 @@ class Thread extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return User::getDb()->cache(function ($db) {
+            return $this->hasOne(User::className(), ['id' => 'user_id']);
+        });
     }
 
     /**
@@ -95,7 +99,9 @@ class Thread extends \yii\db\ActiveRecord
      */
     public function getThreadTags()
     {
-        return $this->hasMany(ThreadTag::className(), ['thread_id' => 'id']);
+        return ThreadTag::getDb()->cache(function ($db) {
+            return $this->hasMany(ThreadTag::className(), ['thread_id' => 'id']);
+        });
     }
 
     /**
@@ -103,7 +109,9 @@ class Thread extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%thread__tag}}', ['thread_id' => 'id']);
+        return Tag::getDb()->cache(function ($db) {
+            return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%thread__tag}}', ['thread_id' => 'id']);
+        });
     }
 
     /**
@@ -111,10 +119,12 @@ class Thread extends \yii\db\ActiveRecord
      */
     public function getJoinedUsers()
     {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])
-            ->viaTable(Comment::tableName(), ['thread_id' => 'id'])
-            ->select('id, username')
-            ->indexBy('username');
+        return User::getDb()->cache(function ($db) {
+            return $this->hasMany(User::className(), ['id' => 'user_id'])
+                ->viaTable(Comment::tableName(), ['thread_id' => 'id'])
+                ->select('id, username')
+                ->indexBy('username');
+        });
     }
 
     public function getTagString()

@@ -8,5 +8,8 @@ return [
         'session' => [
             'class' => 'yii\web\DbSession',
         ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
     ],
 ];

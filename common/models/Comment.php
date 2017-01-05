@@ -75,7 +75,9 @@ class Comment extends \yii\db\ActiveRecord
      */
     public function getThread()
     {
-        return $this->hasOne(Thread::className(), ['id' => 'thread_id']);
+        return Thread::getDb()->cache(function ($db) {
+            return $this->hasOne(Thread::className(), ['id' => 'thread_id']);
+        });
     }
 
     /**
@@ -83,7 +85,9 @@ class Comment extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return User::getDb()->cache(function ($db) {
+            return $this->hasOne(User::className(), ['id' => 'user_id']);
+        });
     }
 
     /**
