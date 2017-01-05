@@ -212,3 +212,10 @@ form.login-block, form.register-block {
     width: 100%;
     max-width: 100%;
 }
+
+.post_sum .post_text {
+    border: 0;
+    min-height: auto;
+    padding: 10px;
+}
+

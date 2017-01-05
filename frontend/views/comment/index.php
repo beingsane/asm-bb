@@ -1,33 +1,22 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\CommentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Comments');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('app', 'Search results');
 ?>
-<div class="comment-index">
+<div class="comment-index content-block">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'thread_id',
-            'text:ntext',
-            'created_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+        'itemView' => '_comment.php',
+        'emptyText' => Yii::t('app', 'No results found'),
+        'layout' => '{pager}{summary}{items}{pager}',
+    ]) ?>
 </div>
