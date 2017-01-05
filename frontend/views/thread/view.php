@@ -28,4 +28,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Thread list'), 'url'
 
 </div>
 
-<?= $this->render('_commentForm', ['model' => $newCommentModel]) ?>
+<?php if (!Yii::$app->user->isGuest) { ?>
+    <?= $this->render('_commentForm', ['model' => $newCommentModel]) ?>
+<?php } ?>

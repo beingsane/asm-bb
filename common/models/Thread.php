@@ -111,7 +111,7 @@ class Thread extends \yii\db\ActiveRecord
      */
     public function getJoinedUsers()
     {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])->where(['!=', 'id', $this->user->id])
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->where(['!=', 'id', 'thread.user_id'])
             ->viaTable(Comment::tableName(), ['thread_id' => 'id'])
             ->select('id, username');
     }
@@ -151,8 +151,11 @@ class Thread extends \yii\db\ActiveRecord
                 $tag->save();
             }
 
-            $threadTag = new ThreadTag(['tag_id' => $tag->id, 'thread_id' => $this->id]);
-            $threadTag->save();
+            $threadTag = ThreadTag::findOne(['tag_id' => $tag->id, 'thread_id' => $this->id]);
+            if (!$threadTag) {
+                $threadTag = new ThreadTag(['tag_id' => $tag->id, 'thread_id' => $this->id]);
+                $threadTag->save();
+            }
         }
 
         $transaction->commit();

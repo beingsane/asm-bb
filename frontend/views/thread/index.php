@@ -16,9 +16,11 @@ $this->title = Yii::t('app', 'Thread list');
             <?= $this->render('_search', ['model' => $searchModel]) ?>
         </div>
 
-        <div class="col-sm-3 text-right">
-            <?= Html::a(Yii::t('app', 'Create Thread'), ['create'], ['class' => 'btn btn-success']) ?>
-        </div>
+        <?php if (!Yii::$app->user->isGuest) { ?>
+            <div class="col-sm-3 text-right">
+                <?= Html::a(Yii::t('app', 'Create Thread'), ['create'], ['class' => 'btn btn-success']) ?>
+            </div>
+        <?php } ?>
     </div>
 
     <?= ListView::widget([
