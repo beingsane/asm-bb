@@ -137,3 +137,10 @@ a {
 a.btn {
     text-decoration: none;
 }
+
+div.panel button {
+    background-color: #f06060;
+    border-style: none;
+    color: white;
+    padding: 4px;
+}

@@ -103,7 +103,7 @@ AppAsset::register($this);
                     foreach ($this->params['breadcrumbs'] as $breadcrumb) {
                         if (is_string($breadcrumb)) {
                             $label = $breadcrumb;
-                            $url = '';
+                            $url = null;
                         } else {
                             $label = $breadcrumb['label'];
                             $url = $breadcrumb['url'];

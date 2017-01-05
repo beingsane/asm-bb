@@ -8,16 +8,17 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="comment-form">
+<div class="comment-form new_editor">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'editform']); ?>
 
     <?= Html::activeHiddenInput($model, 'thread_id') ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
+    <p><?= Yii::t('app', 'Post content:') ?></p>
+    <?= $form->field($model, 'text')->textarea(['rows' => 6, 'class' => 'editor'])->label(false) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-success']) ?>
+    <div class="panel">
+        <?= Html::submitButton(Yii::t('app', 'Submit')) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

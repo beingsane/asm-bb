@@ -9,24 +9,13 @@ use yii\widgets\ListView;
 /* @var $newCommentModel common\models\Comment */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Threads'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Thread list'), 'url' => ['index']];
 ?>
-<div class="thread-view">
+<div class="thread-view thread">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="thread_caption"><?= Html::encode($this->title) ?></h1>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user.username',
-            'name',
-            'created_at',
-        ],
-    ]) ?>
-
-    <br><br>
+    <br>
 
     <?= ListView::widget([
         'dataProvider' => new \yii\data\ActiveDataProvider(['query' => $model->getComments()]),
@@ -35,6 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <br><br>
 
-    <?= $this->render('_commentForm', ['model' => $newCommentModel]) ?>
-
 </div>
+
+<?= $this->render('_commentForm', ['model' => $newCommentModel]) ?>

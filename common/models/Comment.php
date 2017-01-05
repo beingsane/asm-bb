@@ -84,4 +84,12 @@ class Comment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    /**
+     * @return string
+     */
+    public function html()
+    {
+        return Yii::$app->formatter->asHtml($this->text);
+    }
 }

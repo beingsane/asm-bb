@@ -17,6 +17,7 @@ use yii\behaviors\TimestampBehavior;
  * @property User $user
  * @property ThreadTag[] $threadTags
  * @property Tag[] $tags
+ * @property User[] $joinedUsers
  */
 class Thread extends \yii\db\ActiveRecord
 {
